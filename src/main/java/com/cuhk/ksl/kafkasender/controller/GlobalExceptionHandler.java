@@ -1,6 +1,7 @@
 package com.cuhk.ksl.kafkasender.controller;
 
 import com.cuhk.ksl.kafkasender.exception.DataFormatException;
+import com.cuhk.ksl.kafkasender.exception.EmptyMsgException;
 import com.cuhk.ksl.kafkasender.exception.UnAutnException;
 import com.cuhk.ksl.kafkasender.vo.Constant;
 import com.cuhk.ksl.kafkasender.vo.ResultMsg;
@@ -43,5 +44,13 @@ public class GlobalExceptionHandler {
         result.setCode(Constant.FAILURE_CODE);
         result.setMessage(e.getMessage());
         return result;
+    }
+
+    @ExceptionHandler(value = EmptyMsgException.class)
+    public ResultMsg handlerEmptyMsgException(EmptyMsgException e){
+        ResultMsg resultMsg = new ResultMsg();
+        resultMsg.setCode(Constant.FAILURE_CODE);
+        resultMsg.setMessage(e.getMessage());
+        return  resultMsg;
     }
 }

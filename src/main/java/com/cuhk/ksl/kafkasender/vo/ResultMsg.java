@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class ResultMsg {
     private String code;
-    private String message;
+    private Object message;
 }
