@@ -18,10 +18,10 @@ import java.util.concurrent.BlockingDeque;
 @RequestMapping("/")
 public class MsgGetController {
     //从缓存中根据用户名取消息
-    @GetMapping("/get/{patient}")
-    public ResultMsg getMsg(@PathVariable String patient) throws EmptyMsgException {
+    @GetMapping("/get/{receiver}")
+    public ResultMsg getMsg(@PathVariable String receiver) throws EmptyMsgException {
 
-        BlockingDeque<HeartMsg> queue = Cache.cache.get(patient);
+        BlockingDeque<HeartMsg> queue = Cache.cache.get(receiver);
         if(queue==null){
             throw new EmptyMsgException("该用户消息为空");
         }

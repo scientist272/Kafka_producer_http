@@ -25,18 +25,18 @@ public class KafkaReciver {
             log.info("----------success in getting message " +
                     "from kafka topic:{},with partitionId:{}-----------------", topic, partitionId);
             HeartMsg heartMsg = JSON.parseObject(record, HeartMsg.class);
-            String patientName = heartMsg.getPatient();
+            String receiver = heartMsg.getReceiver();
             //将消息放入缓存之中
-            if(Cache.cache.get(patientName)==null){
-                Cache.cache.put(patientName,new LinkedBlockingDeque<>());
+            if(Cache.cache.get(receiver)==null){
+                Cache.cache.put(receiver,new LinkedBlockingDeque<>());
                 try {
-                    Cache.cache.get(patientName).put(heartMsg);
+                    Cache.cache.get(receiver).put(heartMsg);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }else{
                 try {
-                    Cache.cache.get(patientName).put(heartMsg);
+                    Cache.cache.get(receiver).put(heartMsg);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
